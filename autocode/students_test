@@ -2,9 +2,9 @@ package coverage
 
 import (
 	"os"
-	"time"
+	"reflect"
 	"testing"
-	"reflect"	
+	"time"
 )
 
 // DO NOT EDIT THIS FUNCTION
@@ -100,6 +100,12 @@ func TestMatrix(t *testing.T) {
 		expRows [][]int
 		expCols [][]int
 	}{
+		"empty matrix": {
+			matrix: "",
+		},
+		"number of rows and cols equal": {
+			matrix: "3\n 3 3",
+		},
 		"valid matrix": {
 			matrix: "3 3\n3 3 \n 3 3",
 			expRows: [][]int{{3, 3}, {3, 3}, {3, 3}},
@@ -109,10 +115,8 @@ func TestMatrix(t *testing.T) {
 	for name, tt := range cases {
 		t.Run(name, func(t *testing.T) {			
 			m, err := New(tt.matrix)
-
-			if err != nil{
-				t.Errorf("Error - %v", err)		
-			} else {
+			
+			if err == nil {
 				r := m.Rows()
 				c := m.Cols()
 				m.Set(1, 1, 5)

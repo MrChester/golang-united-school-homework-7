@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 	"testing"
-	"reflect"
+	"reflect"	
 )
 
 // DO NOT EDIT THIS FUNCTION
@@ -92,5 +92,47 @@ func TestPerson(t *testing.T) {
 			}
 		})
 	}	
+}
+
+func TestMatrix(t *testing.T) {
+	cases := map[string]struct {
+		matrix string
+		expRows [][]int
+		expCols [][]int
+	}{
+		"empty matrix": {
+			matrix: "",
+		},
+		"number of rows and cols equal": {
+			matrix: "3\n 3 3",
+		},
+		"valid matrix": {
+			matrix: "3 3\n3 3 \n 3 3",
+			expRows: [][]int{{3, 3}, {3, 3}, {3, 3}},
+			expCols: [][]int{{3, 3, 3}, {3, 3, 3}},
+		},
+	}
+	for name, tt := range cases {
+		t.Run(name, func(t *testing.T) {			
+			m, err := New(tt.matrix)
+
+			if err != nil{
+				t.Errorf("Error - %v", err)		
+			} else {
+				r := m.Rows()
+				c := m.Cols()
+				m.Set(1, 1, 5)
+				m.Set(1, 5, 5)
+				m.Set(-1, 0, 5)				
+				
+				if !reflect.DeepEqual(r, tt.expRows) {
+					t.Errorf("incorect number of rows - exp: %v, got %v", tt.expRows, r)
+				}
+				if !reflect.DeepEqual(c, tt.expCols) {
+					t.Errorf("incorect number of cols - exp: %v, got %v", tt.expCols, c)
+				}	
+			}
+		})
+	}
 }
 

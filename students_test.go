@@ -100,12 +100,6 @@ func TestMatrix(t *testing.T) {
 		expRows [][]int
 		expCols [][]int
 	}{
-		"empty matrix": {
-			matrix: "",
-		},
-		"number of rows and cols equal": {
-			matrix: "3\n 3 3",
-		},
 		"valid matrix": {
 			matrix: "3 3\n3 3 \n 3 3",
 			expRows: [][]int{{3, 3}, {3, 3}, {3, 3}},
